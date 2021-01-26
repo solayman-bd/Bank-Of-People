@@ -1,0 +1,20 @@
+.transaction-item{
+    border-radius: 10px;
+    width: 80%;
+}
+.b-radius{
+    border-radius: 10px;
+}
+#transaction-area{
+    display: none;
+    margin-top: 100px;
+}
+#deposit-area{
+    background-color: blueviolet;
+}
+#withdraw{
+    background-color: tomato;
+}
+#balance{
+    background-color: teal;
+}

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="login-area w-75 m-auto ">
+    <div id="login-area" class="w-75 m-auto ">
         <h1 class="p-5 text-center">Welcome to the Bank Of People</h1>
 
         <div class="p-t-2 border rounded submit-area shadow p-3 mb-5 bg-white">
@@ -19,9 +19,61 @@
                 <label for="exampleInputPassword1"></label>
                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
 
-                <button class="btn btn-success pt-1 pb-1 mt-2 mb-1">Submit</button>
+                <button id="login-button" class="btn btn-success pt-1 pb-1 mt-2 mb-1">Submit</button>
+            </div>
+        </div>
+    </div>
+    <div id="transaction-area" class="w-75 ml-auto mr-auto">
+        <div class="row text-white">
+            <div class="col-md-4">
+                <div id="deposit-area" class="transaction-item bg-success pl-4">
+                    <h3>Deposit</h3>
+                    <h2>$00</h2>
+                </div>
+            </div>
+            <div class=" col-md-4">
+                <div id="withdraw" class="transaction-item bg-red pl-4">
+                    <h3>Withdraw</h3>
+                    <h2>$00</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="balance" class="transaction-item bg-danger pl-4">
+                    <h3>Balance</h3>
+                    <h2>$1200</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-6 w-75">
+                <div class="pl-2 b-radius pr-2 pb-3 bg-white shadow">
+                    <br>
+                    <h2>Deposit</h2>
+                    <input type="text" placeholder="$ amount you want to deposit" class="form-control">
+                    <button class="btn btn-success p-1 rounded mt-3 mb-3">Deposit</button>
+                    <br>
+                </div>
+            </div>
+            <div class="col-md-6 w-75">
+                <div class="pl-2 pr-2 pb-3 b-radius bg-white shadow">
+                    <br>
+                    <h2>Withdraw</h2>
+                    <input type="text" placeholder="$ amount you want to Withdraw" class="form-control">
+                    <button class="btn btn-success p-1 rounded mt-3 mb-3">Withdraw</button>
+                    <br>
+                </div>
             </div>
         </div>
     </div>
 </body>
+<script>
+    var loginArea= document.getElementById("login-area");
+    var loginButton = document.getElementById("login-button");
+    loginButton.addEventListener("click",function(){
+        loginArea.style.display="none";
+        var transactionArea= document.getElementById("transaction-area");
+        transactionArea.style.display="block";
+    })
+
+</script>
 </html>
