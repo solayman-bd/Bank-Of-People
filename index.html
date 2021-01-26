@@ -26,40 +26,42 @@
     <div id="transaction-area" class="w-75 ml-auto mr-auto">
         <div class="row text-white">
             <div class="col-md-4">
-                <div id="deposit-area" class="transaction-item bg-success pl-4">
+                <div id="deposit-area" class="pb-md-1 text-sm-center text-md-left m-sm-auto m-md-0 transaction-item bg-success pl-4">
                     <h3>Deposit</h3>
-                    <h2>$00</h2>
+                    <h2>$<span id="current-deposit">00</span></h2>    
                 </div>
             </div>
             <div class=" col-md-4">
-                <div id="withdraw" class="transaction-item bg-red pl-4">
+                <div id="withdraw" class="pb-md-1 transaction-item text-md-left m-sm-auto m-md-0 text-sm-center bg-red pl-4">
                     <h3>Withdraw</h3>
-                    <h2>$00</h2>
+                    <h2>$<span id="current-withdraw">00</span></h2>
+                   
                 </div>
             </div>
             <div class="col-md-4">
-                <div id="balance" class="transaction-item bg-danger pl-4">
+                <div id="balance" class="pb-md-1 text-sm-center text-md-left m-sm-auto m-md-0 transaction-item bg-danger pl-4">
                     <h3>Balance</h3>
-                    <h2>$1200</h2>
+                    <h2>$<span id="current-balance">1200</span></h2>
+                   
                 </div>
             </div>
         </div>
         <div class="row mt-5">
-            <div class="col-md-6 w-75">
+            <div class="col-md-6 col-sm-12 w-75">
                 <div class="pl-2 b-radius pr-2 pb-3 bg-white shadow">
                     <br>
                     <h2>Deposit</h2>
-                    <input type="text" placeholder="$ amount you want to deposit" class="form-control">
-                    <button class="btn btn-success p-1 rounded mt-3 mb-3">Deposit</button>
+                    <input id="deposit-amount" type="text" placeholder="$ amount you want to deposit" class="form-control">
+                    <button id="deposit-button" class="btn btn-success p-1 rounded mt-3 mb-3">Deposit</button>
                     <br>
                 </div>
             </div>
-            <div class="col-md-6 w-75">
+            <div class="col-md-6 col-sm-12 mt-sm-3 mt-md-0 w-75">
                 <div class="pl-2 pr-2 pb-3 b-radius bg-white shadow">
                     <br>
                     <h2>Withdraw</h2>
-                    <input type="text" placeholder="$ amount you want to Withdraw" class="form-control">
-                    <button class="btn btn-success p-1 rounded mt-3 mb-3">Withdraw</button>
+                    <input id="withdraw-amount" type="text" placeholder="$ amount you want to Withdraw" class="form-control">
+                    <button id="withdraw-button" class="btn btn-success p-1 rounded mt-3 mb-3">Withdraw</button>
                     <br>
                 </div>
             </div>
@@ -67,12 +69,60 @@
     </div>
 </body>
 <script>
+    //login event handler
     var loginArea= document.getElementById("login-area");
     var loginButton = document.getElementById("login-button");
     loginButton.addEventListener("click",function(){
         loginArea.style.display="none";
         var transactionArea= document.getElementById("transaction-area");
         transactionArea.style.display="block";
+    })
+
+    //deposit event handler
+    var depositButton = document.getElementById("deposit-button");
+    depositButton.addEventListener("click", function(){
+        var depositAmount = document.getElementById("deposit-amount").value;
+        var depositAmountNumber= parseFloat(depositAmount);
+
+        spanUpdater("current-deposit",depositAmountNumber);
+        spanUpdater("current-balance",depositAmountNumber);
+
+        document.getElementById("deposit-amount").value='';
+
+
+    })
+
+    function spanUpdater(id,currentStatus){
+        var currentValueInId = document.getElementById(id).innerText;
+        var currentValueInIdInNumber = parseFloat(currentValueInId); 
+        var sum= currentStatus + currentValueInIdInNumber;
+        document.getElementById(id).innerText= sum;
+        
+    }
+
+    function spanUpdaterNeg(id,currentStatus){
+        var currentValueInId = document.getElementById(id).innerText;
+        var currentValueInIdInNumber = parseFloat(currentValueInId); 
+        var sum= currentValueInIdInNumber-currentStatus;
+        document.getElementById(id).innerText= sum;
+        
+    }
+
+    var withdrawButton = document.getElementById("withdraw-button");
+    withdrawButton.addEventListener("click",function(){
+        var withdrawAmount = document.getElementById("withdraw-amount").value;
+        var withdrawAmountNumber = parseFloat(withdrawAmount);
+
+        spanUpdater("current-withdraw",withdrawAmountNumber);
+
+        document.getElementById("withdraw-amount").value= "";
+
+        spanUpdaterNeg("current-balance",withdrawAmountNumber);
+
+        // spanUpdaterNeg("current-deposit",withdrawAmountNumber);
+
+
+
     })
 
 </script>
