@@ -83,15 +83,14 @@
     depositButton.addEventListener("click", function(){
         var depositAmount = document.getElementById("deposit-amount").value;
         var depositAmountNumber= parseFloat(depositAmount);
-        if (depositAmountNumber>0){
+        if(depositAmountNumber<=0){
+            alert("Input Money cannot be Zero or Negative")
+        }
+        else if (depositAmountNumber>0){
             spanUpdater("current-deposit",depositAmountNumber);
             spanUpdater("current-balance",depositAmountNumber);
         }
-        
-
         document.getElementById("deposit-amount").value='';
-
-
     })
 
     function spanUpdater(id,currentStatus){
@@ -117,7 +116,13 @@
         var currentBalanceNumber= parseFloat(document.getElementById("current-balance").innerText);
         var currentDepositNumber = parseFloat(document.getElementById("current-deposit").innerText);
         
-        if (withdrawAmountNumber>0 && withdrawAmountNumber<=currentBalanceNumber ){
+        if(withdrawAmountNumber>currentBalanceNumber){
+            alert("Insufficient Balance");
+        }
+        else if(withdrawAmountNumber<=0){
+            alert("Please input some valid amount")
+        }
+        else if (withdrawAmountNumber>0 && withdrawAmountNumber<=currentBalanceNumber ){
             spanUpdater("current-withdraw",withdrawAmountNumber);
             if (currentBalanceNumber>currentDepositNumber){
                 var howMuchMore=currentBalanceNumber-currentDepositNumber;
@@ -125,24 +130,19 @@
                     spanUpdaterNeg("current-balance",withdrawAmountNumber);
                 }
 
-                else if(withdrawAmountNumber>howMuchMore){
-                        
+                else if(withdrawAmountNumber>howMuchMore){             
                     if(howMuchMore>0){                
                         howHowMuchMore=withdrawAmountNumber-howMuchMore;
                         spanUpdaterNeg("current-balance",howMuchMore);
                         spanUpdaterNeg("current-balance",howHowMuchMore);
                         spanUpdaterNeg("current-deposit",howHowMuchMore);
-            
                     }
-                    
                 }
-
             }
             else if (currentBalanceNumber==currentDepositNumber){ 
                 spanUpdaterNeg("current-deposit",withdrawAmountNumber);
                 spanUpdaterNeg("current-balance",withdrawAmountNumber)
             }
-
         }
             
         document.getElementById("withdraw-amount").value= "";
