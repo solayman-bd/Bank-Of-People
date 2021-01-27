@@ -47,20 +47,20 @@
             </div>
         </div>
         <div class="row mt-5">
-            <div class="col-md-6 col-12 w-75">
+            <div class="col-md-6 text-center text-md-left col-12 w-75">
                 <div class="pl-2 b-radius pr-2 pb-3 bg-white shadow">
                     <br>
                     <h2>Deposit</h2>
-                    <input id="deposit-amount" type="text" placeholder="$ amount you want to deposit" class="form-control">
+                    <input id="deposit-amount" type="text" placeholder="$amount you want to deposit" class="form-control text-center text-md-left">
                     <button id="deposit-button" class="btn btn-success p-1 rounded mt-3 mb-3">Deposit</button>
                     <br>
                 </div>
             </div>
-            <div class="col-md-6 col-12 mt-3 mt-md-0 w-75">
+            <div class="col-md-6 text-center text-md-left col-12 mt-3 mt-md-0 w-75">
                 <div class="pl-2 pr-2 pb-3 b-radius bg-white shadow">
                     <br>
                     <h2>Withdraw</h2>
-                    <input id="withdraw-amount" type="text" placeholder="$ amount you want to Withdraw" class="form-control">
+                    <input id="withdraw-amount" type="text" placeholder="$ amount you want to Withdraw" class="form-control text-center text-md-left">
                     <button id="withdraw-button" class="btn btn-success p-1 rounded mt-3 mb-3">Withdraw</button>
                     <br>
                 </div>
@@ -83,9 +83,11 @@
     depositButton.addEventListener("click", function(){
         var depositAmount = document.getElementById("deposit-amount").value;
         var depositAmountNumber= parseFloat(depositAmount);
-
-        spanUpdater("current-deposit",depositAmountNumber);
-        spanUpdater("current-balance",depositAmountNumber);
+        if (depositAmountNumber>0){
+            spanUpdater("current-deposit",depositAmountNumber);
+            spanUpdater("current-balance",depositAmountNumber);
+        }
+        
 
         document.getElementById("deposit-amount").value='';
 
@@ -112,14 +114,48 @@
     withdrawButton.addEventListener("click",function(){
         var withdrawAmount = document.getElementById("withdraw-amount").value;
         var withdrawAmountNumber = parseFloat(withdrawAmount);
-
-        spanUpdater("current-withdraw",withdrawAmountNumber);
+        var currentBalanceNumber= parseFloat(document.getElementById("current-balance").innerText);
+        var currentDepositNumber = parseFloat(document.getElementById("current-deposit").innerText);
+        
+        if (withdrawAmountNumber>0 && withdrawAmountNumber<=currentBalanceNumber ){
+            spanUpdater("current-withdraw",withdrawAmountNumber);
+            if (currentBalanceNumber>currentDepositNumber){
+                var howMuchMore=currentBalanceNumber-currentDepositNumber;
+                if(withdrawAmountNumber<=howMuchMore){
+                    spanUpdaterNeg("current-balance",withdrawAmountNumber);
+                }
+                else if(withdrawAmountNumber>howMuchMore){
+                    howHowMuchMore=withdrawAmountNumber-howMuchMore;
+                    spanUpdaterNeg("current-balance",howHowMuchMore);
+                    var subFromBoth= withdrawAmountNumber-howHowMuchMore;
+                    // duijagathekebiyog=withdrawtaka-kotobesitakarcheyekotobesi;
+                    spanUpdaterNeg("current-balance",subFromBoth);
+                    // balace-duijagathekebiyog
+                    spanUpdaterNeg("current-deposit",subFromBoth);
+                    // deposiitaka-duijagathekebiyog
+                }
+            }
+            
+            // if (withdrawAmountNumber>currentDepositNumber){
+            //     var amountReductionFromMainBalance= withdrawAmountNumber-currentDepositNumber;
+            //     spanUpdaterNeg("current-balance",amountReductionFromMainBalance);
+            //     spanUpdaterNeg("current-deposit",amountReductionFromMainBalance);
+            // }
+            // else if (currentBalanceNumber==currentDepositNumber){ 
+            //     spanUpdaterNeg("current-deposit",withdrawAmountNumber);
+            // }
+            // else{
+            //     spanUpdaterNeg("current-balance",withdrawAmountNumber);
+            // }
+        }
+            
+        
 
         document.getElementById("withdraw-amount").value= "";
 
-        spanUpdaterNeg("current-balance",withdrawAmountNumber);
+        
 
-        // spanUpdaterNeg("current-deposit",withdrawAmountNumber);
+        
 
 
 
