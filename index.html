@@ -124,40 +124,28 @@
                 if(withdrawAmountNumber<=howMuchMore){
                     spanUpdaterNeg("current-balance",withdrawAmountNumber);
                 }
+
                 else if(withdrawAmountNumber>howMuchMore){
-                    howHowMuchMore=withdrawAmountNumber-howMuchMore;
-                    spanUpdaterNeg("current-balance",howHowMuchMore);
-                    var subFromBoth= withdrawAmountNumber-howHowMuchMore;
-                    // duijagathekebiyog=withdrawtaka-kotobesitakarcheyekotobesi;
-                    spanUpdaterNeg("current-balance",subFromBoth);
-                    // balace-duijagathekebiyog
-                    spanUpdaterNeg("current-deposit",subFromBoth);
-                    // deposiitaka-duijagathekebiyog
-                }
-            }
+                        
+                    if(howMuchMore>0){                
+                        howHowMuchMore=withdrawAmountNumber-howMuchMore;
+                        spanUpdaterNeg("current-balance",howMuchMore);
+                        spanUpdaterNeg("current-balance",howHowMuchMore);
+                        spanUpdaterNeg("current-deposit",howHowMuchMore);
             
-            // if (withdrawAmountNumber>currentDepositNumber){
-            //     var amountReductionFromMainBalance= withdrawAmountNumber-currentDepositNumber;
-            //     spanUpdaterNeg("current-balance",amountReductionFromMainBalance);
-            //     spanUpdaterNeg("current-deposit",amountReductionFromMainBalance);
-            // }
-            // else if (currentBalanceNumber==currentDepositNumber){ 
-            //     spanUpdaterNeg("current-deposit",withdrawAmountNumber);
-            // }
-            // else{
-            //     spanUpdaterNeg("current-balance",withdrawAmountNumber);
-            // }
+                    }
+                    
+                }
+
+            }
+            else if (currentBalanceNumber==currentDepositNumber){ 
+                spanUpdaterNeg("current-deposit",withdrawAmountNumber);
+                spanUpdaterNeg("current-balance",withdrawAmountNumber)
+            }
+
         }
             
-        
-
         document.getElementById("withdraw-amount").value= "";
-
-        
-
-        
-
-
 
     })
 
